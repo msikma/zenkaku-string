@@ -1,7 +1,7 @@
 {
   "name": "cjk-length",
   "version": "1.0.0",
-  "description": "Accurate length detection for strings containing wide characters",
+  "description": "Returns string length with wide characters counting as two",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

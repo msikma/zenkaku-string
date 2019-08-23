@@ -1,6 +1,6 @@
 ## CJK Length
 
-**Accurate length detection for strings containing wide characters**
+**Returns string length with wide characters counting as two**
 
 In CJK (Chinese, Japanese and Korean) text, "wide" or "fullwidth" characters
 are Unicode glyphs that get printed as two blocks wide instead of one when using
