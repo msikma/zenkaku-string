@@ -22,7 +22,7 @@ To use, replace property accesses such as `myString.length` with function calls
 to `cjkLength(myString)`:
 
 ```js
-const cjkLength = require('cjk-length)
+const cjkLength = require('cjk-length')
 
 // Using cjkLength() to get a visually correct string length for fixed-width fonts:
 // In this case, 'abcdeＡＢＣＤＥ' has length 10 but is displayed as though it's length 15.
