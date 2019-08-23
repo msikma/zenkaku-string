@@ -1,12 +1,14 @@
 {
   "name": "cjk-length",
   "version": "1.0.0",
-  "description": "",
+  "description": "Accurate length detection for strings containing wide characters",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "homepage": "https://github.com/msikma/cjk-length",
+  "repository": "https://github.com/msikma/cjk-length",
+  "author": "Michiel Sikma <michiel@sikma.org>",
   "license": "MIT"
 }
