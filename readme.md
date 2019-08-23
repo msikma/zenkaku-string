@@ -16,6 +16,8 @@ its length value would indicate. This causes e.g. tabulated layouts to be broken
 This function scans a given string for occurrences of characters from the relevant
 Unicode ranges to correctly determine the string's visual length.
 
+For a full list of the character ranges used, see the [`characters.js` source](characters.js).
+
 ### Usage
 
 To use, replace property accesses such as `myString.length` with function calls
