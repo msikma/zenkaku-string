@@ -22,7 +22,7 @@ To use, replace property accesses such as `myString.length` with function calls
 to `cjkLength(myString)`:
 
 ```js
-const cjkLength = require('cjk-length')
+const cjkLength = require('cjk-length').default
 
 // Using cjkLength() to get a visually correct string length for fixed-width fonts:
 // In this case, 'abcdeＡＢＣＤＥ' has length 10 but is displayed as though it's length 15.
@@ -31,9 +31,9 @@ console.log(myString.length)      // 10
 console.log(cjkLength(myString))  // 15
 
 // Verifying that this longer string width value looks correct (in a terminal):
-console.log(`.${myString}.`)                  // .abcdeＡＢＣＤＥ.
-console.log('a'.repeat(myString.length))      // .aaaaaaaaaa.
-console.log('a'.repeat(cjkLength(myString)))  // .aaaaaaaaaaaaaaa.
+console.log(`.${myString}.`)                         // .abcdeＡＢＣＤＥ.
+console.log(`.${'a'.repeat(myString.length)}.`)      // .aaaaaaaaaa.
+console.log(`.${'a'.repeat(cjkLength(myString))}.`)  // .aaaaaaaaaaaaaaa.
 ```
 
 If you need to process a string's wide characters in some other way, you can import

@@ -23,7 +23,7 @@
 const { charsWide, charsFullWidth } = require('./characters')
 
 // Join together all ranges as a single regular expression.
-export const charsRegex = new RegExp(`[${charsWide.join('')}${charsFullWidth.join('')}]`, 'g')
+const charsRegex = new RegExp(`[${charsWide.join('')}${charsFullWidth.join('')}]`, 'g')
 
 /**
  * Returns the length of a string with wide/fullwidth characters counting for two.
@@ -36,4 +36,7 @@ const cjkLength = str => (
   str.replace(charsRegex, 'xx').length
 )
 
-export default cjkLength
+module.exports = {
+  default: cjkLength,
+  charsRegex
+}

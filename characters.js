@@ -4,7 +4,7 @@
 // The ranges are defined by their East Asian Width classification; either W or FW.
 // Source: http://www.unicode.org/reports/tr11-2/
 
-export const charsWide = [
+const charsWide = [
   // ᄀ..ᇹ; HANGUL CHOSEONG KIYEOK..HANGUL JONGSEONG YEORINHIEUH
   `\u1100-\u11F9`,
   // 　..〿; IDEOGRAPHIC SPACE..IDEOGRAPHIC HALF FILL SPACE
@@ -41,7 +41,7 @@ export const charsWide = [
   `\uF900-\uFA2D`
 ]
 
-export const charsFullWidth = [
+const charsFullWidth = [
   // ︰..﹄; PRESENTATION FORM FOR VERTICAL TWO DOT LEADER..PRESENTATION FORM FOR VERTICAL RIGHT WHITE CORNER BRACKET
   `\uFE30-\uFE44`,
   // ﹉..﹒; DASHED OVERLINE..SMALL FULL STOP
@@ -53,3 +53,8 @@ export const charsFullWidth = [
   // ￠..￦; FULLWIDTH CENT SIGN..FULLWIDTH WON SIGN
   `\uFFE0-\uFFE6`
 ]
+
+module.exports = {
+  charsWide,
+  charsFullWidth
+}
