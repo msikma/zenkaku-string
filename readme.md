@@ -9,7 +9,7 @@ a fixed-width font. Examples include ranges like the [Japanese kana](https://en.
 
 Since these characters are printed as two blocks, but count as one, this causes
 a problem when trying to accurately measure the length of the string for use
-in a fixed-width text environment such as the terminal--a string containing
+in a fixed-width text environment such as the terminal—a string containing
 one fullwidth character will visually appear to be one character longer than
 its length value would indicate. This causes e.g. tabulated layouts to be broken.
 
@@ -30,7 +30,7 @@ const myString = 'abcdeＡＢＣＤＥ'
 console.log(myString.length)      // 10
 console.log(cjkLength(myString))  // 15
 
-// Verifying that this longer string width value looks correct:
+// Verifying that this longer string width value looks correct (in a terminal):
 console.log(`.${myString}.`)                  // .abcdeＡＢＣＤＥ.
 console.log('a'.repeat(myString.length))      // .aaaaaaaaaa.
 console.log('a'.repeat(cjkLength(myString)))  // .aaaaaaaaaaaaaaa.
