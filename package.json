@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": ["characters.js", "index.js", "package.json", "readme.md"],
   "keywords": [],
   "homepage": "https://github.com/msikma/cjk-length",
   "repository": "https://github.com/msikma/cjk-length",
