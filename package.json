@@ -1,12 +1,17 @@
 {
   "name": "cjk-length",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Returns string length with wide characters counting as two",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "files": ["characters.js", "index.js", "package.json", "readme.md"],
+  "files": [
+    "characters.js",
+    "index.js",
+    "package.json",
+    "readme.md"
+  ],
   "keywords": [],
   "homepage": "https://github.com/msikma/cjk-length",
   "repository": "https://github.com/msikma/cjk-length",
