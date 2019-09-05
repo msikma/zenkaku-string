@@ -5,7 +5,7 @@
 In CJK (Chinese, Japanese and Korean) text, "wide" or "fullwidth" characters
 are Unicode glyphs that get printed as two blocks wide instead of one when using
 a fixed-width font. Examples include ranges like the [Japanese kana](https://en.wikipedia.org/wiki/Kana) (あいうえお),
-[full-width romaji](https://en.wikipedia.org/wiki/Halfwidth_and_fullwidth_forms) (ＡＢＣＤＥ), and [kanji/hanzi ideographs](https://en.wikipedia.org/wiki/Kanji) (一所懸命).
+[fullwidth romaji](https://en.wikipedia.org/wiki/Halfwidth_and_fullwidth_forms) (ＡＢＣＤＥ), and [kanji/hanzi ideographs](https://en.wikipedia.org/wiki/Kanji) (一所懸命).
 
 Since these characters are printed as two blocks, but count as one, this causes
 a problem when trying to accurately measure the length of the string for use
@@ -33,10 +33,13 @@ console.log(myString.length)      // 10
 console.log(cjkLength(myString))  // 15
 
 // Verifying that this longer string width value looks correct (in a terminal):
+// (Logs #1 and #3 should be visually the same length.)
 console.log(`.${myString}.`)                         // .abcdeＡＢＣＤＥ.
 console.log(`.${'a'.repeat(myString.length)}.`)      // .aaaaaaaaaa.
 console.log(`.${'a'.repeat(cjkLength(myString))}.`)  // .aaaaaaaaaaaaaaa.
 ```
+
+*Note that the strings will likely not look correct in the browser—try it in a terminal session to test.*
 
 If you need to process a string's wide characters in some other way, you can import
 the regular expression used to match them:
