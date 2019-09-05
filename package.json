@@ -4,7 +4,7 @@
   "description": "Returns string length with wide characters counting as two",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "files": [
     "characters.js",
@@ -16,5 +16,8 @@
   "homepage": "https://github.com/msikma/cjk-length",
   "repository": "https://github.com/msikma/cjk-length",
   "author": "Michiel Sikma <michiel@sikma.org>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
 }
