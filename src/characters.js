@@ -2,7 +2,7 @@
 
 // This file contains the Unicode ranges that terminals will display as wide characters.
 // The ranges are defined by their East Asian Width classification; either W or FW.
-// Source: http://www.unicode.org/reports/tr11-2/
+// Source: https://www.unicode.org/reports/tr11-2/
 
 const charsWide = [
   // ᄀ..ᇹ; HANGUL CHOSEONG KIYEOK..HANGUL JONGSEONG YEORINHIEUH
