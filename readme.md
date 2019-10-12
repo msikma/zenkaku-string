@@ -78,16 +78,17 @@ Since **this library always aims to returns a string of a predictable length, it
 
 #### Matching wide characters
 
-If you need to process a string's wide characters in a custom way, you can import
-the regular expression used to match them:
+If you need to process a string's wide characters in a custom way, you can import the regex used to match them:
 
 ```js
-const { wideCharsRe } = require('zenkaku-string')
+const { charRangeRe } = require('zenkaku-string')
 
-console.log(wideCharsRe instanceof RegExp)  // true
+console.log(charRangeRe instanceof RegExp)  // true
 ```
 
-The `wideCharsRe` RegExp object is structured like `new RegExp('[\u1100-\u11F9\u3000-\u303F .. etc. \uFFE0-\uFFE6]', 'g')`. It has no capture group and matches every wide character individually.
+The `charRangeRe` RegExp object is structured like `new RegExp('[\u1100-\u11F9\u3000-\u303F .. etc. \uFFE0-\uFFE6]', 'g')`. It has no capture group and matches every wide character individually.
+
+The raw character range arrays used to construct this regex are also exported as `charRange`.
 
 ## Examples
 
