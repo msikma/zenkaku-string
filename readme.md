@@ -1,4 +1,8 @@
-# zenkaku-string<small><small><small><br>String functions for handling [East Asian wide characters](http://www.unicode.org/reports/tr11-2/) in terminals</small></small></small>
+# zenkaku-string
+
+**String functions for handling [East Asian wide characters](https://www.unicode.org/reports/tr11-2/) in terminals**
+
+----
 
 In CJK (Chinese, Japanese and Korean) text, "wide" or "fullwidth" characters (or *zenkaku* in Japanese) are Unicode glyphs that get printed as two blocks wide instead of one when using a fixed-width font. Examples include ranges like the [Japanese kana](https://en.wikipedia.org/wiki/Kana) (あいうえお), [fullwidth romaji](https://en.wikipedia.org/wiki/Halfwidth_and_fullwidth_forms) (ＡＢＣＤＥ), and [kanji/hanzi ideographs](https://en.wikipedia.org/wiki/Kanji).
 
@@ -22,15 +26,15 @@ It provides the following exports:
 
 | Function name | Exact | Replacement for |
 |:--------------|------|:----------------|
-| <code><b>wideCharAt</b>(<i>string, index[, padChar]</i>)</code> | No † | <code>String.prototype.<b>charAt</b>(<i>index</i>)</code> |
-| <code><b>wideIndexOf</b>(<i>string, searchValue[, fromIndex]</i>)</code> | Yes | <code>String.prototype.<b>indexOf</b>(<i>searchValue[, fromIndex]</i>)</code> |
-| <code><b>wideLastIndexOf</b>(<i>string, searchValue[, fromIndex]</i>)</code> | Yes | <code>String.prototype.<b>lastIndexOf</b>(<i>searchValue[, fromIndex]</i>)</code> |
-| <code><b>wideLength</b>(<i>string</i>)</code> | Yes | <code>String.prototype.<b>length</b></code> |
-| <code><b>widePadEnd</b>(<i>string, targetLength[, padChar]</i>)</code> | Yes | <code>String.prototype.<b>padEnd</b>(<i>targetLength[, padChar]</i>)</code> |
-| <code><b>widePadStart</b>(<i>string, targetLength[, padChar]</i>)</code> | Yes | <code>String.prototype.<b>padStart</b>(<i>targetLength[, padChar]</i>)</code> |
-| <code><b>wideSlice</b>(<i>string, beginIndex[, endIndex[, padChar]]</i>)</code> | No ‡ | <code>String.prototype.<b>slice</b>(<i>beginIndex[, endIndex]</i>)</code> |
-| <code><b>wideSubstr</b>(<i>string, start[, length[, padChar]]</i>)</code> | No ‡ | <code>String.prototype.<b>substr</b>(<i>start[, length]</i>)</code> |
-| <code><b>wideSubstring</b>(<i>string, beginIndex[, endIndex[, padChar]]</i>)</code> | No ‡ | <code>String.prototype.<b>substring</b>(<i>beginIndex[, endIndex]</i>)</code> |
+| <code><b>wideCharAt</b>(<i>str, idx[, padChar]</i>)</code> | No† | <code>"str".<b>charAt</b>(<i>idx</i>)</code> |
+| <code><b>wideIndexOf</b>(<i>str, searchVal[, fromIdx]</i>)</code> | Yes | <code>"str".<b>indexOf</b>(<i>searchVal[, fromIdx]</i>)</code> |
+| <code><b>wideLastIndexOf</b>(<i>str, searchVal[, fromIdx]</i>)</code> | Yes | <code>"str".<b>lastIndexOf</b>(<i>searchVal[, fromIdx]</i>)</code> |
+| <code><b>wideLength</b>(<i>string</i>)</code> | Yes | <code>"str".<b>length</b></code> |
+| <code><b>widePadEnd</b>(<i>str, targetLength[, padChar]</i>)</code> | Yes | <code>"str".<b>padEnd</b>(<i>targetLength[, padChar]</i>)</code> |
+| <code><b>widePadStart</b>(<i>str, targetLength[, padChar]</i>)</code> | Yes | <code>"str".<b>padStart</b>(<i>targetLength[, padChar]</i>)</code> |
+| <code><b>wideSlice</b>(<i>str, beginIdx[, endIdx[, padChar]]</i>)</code> | No‡ | <code>"str".<b>slice</b>(<i>beginIdx[, endIdx]</i>)</code> |
+| <code><b>wideSubstr</b>(<i>str, start[, length[, padChar]]</i>)</code> | No‡ | <code>"str".<b>substr</b>(<i>start[, length]</i>)</code> |
+| <code><b>wideSubstring</b>(<i>str, beginIdx[, endIdx[, padChar]]</i>)</code> | No‡ | <code>"str".<b>substring</b>(<i>beginIdx[, endIdx]</i>)</code> |
 
 <small>†: returns a single padding character if second half of wide character is the result; see **¶ Ambiguity** below.</small><br />
 <small>‡: pads start or end with a single padding character if half a wide character is included in resp. the start or end of the result string.</small>
@@ -66,15 +70,15 @@ The following examples are problematic, however:
 
 ```js
                                     // [  ]--
-console.log(wideSlice(farm, 0, 4))  // a1122b → "A牧 " ⚠️
+console.log(wideSlice(farm, 0, 4))  // a1122b → "A牧 " (!)
 
                                     // --[  ]
-console.log(wideSlice(farm, 2, 6))  // a1122b → " 場b" ⚠️
+console.log(wideSlice(farm, 2, 6))  // a1122b → " 場b" (!)
 ```
 
 In these last two examples we're slicing a kanji character down the middle, and we can't return half a character.
 
-Since **this library always aims to returns a string of a predictable length, it replaces half characters with a padding character.** The default padding character is a single space, but it can be specified as the last argument to each function.
+Since **this library always aims to returns a string of a predictable length, it replaces half characters with a padding character.** The default padding character is a single space (U+0020), but it can be specified as the last argument to each function.
 
 #### Matching wide characters
 
