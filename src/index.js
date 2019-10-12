@@ -13,41 +13,37 @@
 // one fullwidth character will visually appear to be one character longer than
 // its length value would indicate. This causes e.g. tabulated layouts to be broken.
 //
-// This function scans a given string for occurrences of characters from the relevant
-// Unicode ranges to correctly determine the string's visual length.
-//
-// To use, replace "myString.length" property accesses with "cjkLength(myString)".
+// This library contains a set of functions designed to handle wide characters more
+// gracefully in a terminal setting by treating them as though their length is 2.
 //
 // Source: https://unicode.org/reports/tr11/ - Report on East Asian width property
 
 const { charRangeRe, charsWide, charsFullWidth } = require('./characters')
+const { wideCharAt } = require('./charAt')
+const { wideLength } = require('./length')
+const { widePadStart, widePadEnd } = require('./pad')
+const { wideSlice, wideSubstr, wideSubstring } = require('./sub')
 
-/**
- * Returns the length of a string with wide/fullwidth characters counting for two.
- *
- * For example, for the string 'aiueoあいうえお' this will return 15: 5 for the ASCII 'aiueo'
- * characters, and 10 for the kana version (twice as much since they count for two).
- *
- * @param   {string} str Input string to measure
- * @returns {number}     Length of the string
- */
-const wideLength = str => (
-  // Simply replace all characters in the range with 'xx' and then return the new length.
-  str.replace(charRangeRe, 'xx').length
-)
+// TODO
+const wideIndexOf = () => {
+  return -1
+}
 
-const NIY = () => { throw new Error('Not implemented yet') }
+// TODO
+const wideLastIndexOf = () => {
+  return -1
+}
 
 module.exports = {
-  wideCharAt: NIY,
-  wideIndexOf: NIY,
-  wideLastIndexOf: NIY,
+  wideCharAt,
+  wideIndexOf,
+  wideLastIndexOf,
   wideLength,
-  widePadEnd: NIY,
-  widePadStart: NIY,
-  wideSlice: NIY,
-  wideSubstr: NIY,
-  wideSubstring: NIY,
+  widePadEnd,
+  widePadStart,
+  wideSlice,
+  wideSubstr,
+  wideSubstring,
   
   charRangeRe,
   charRange: {
