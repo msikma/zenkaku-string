@@ -55,7 +55,11 @@ const charsFullWidth = [
   `\uFFE0-\uFFE6`
 ]
 
+// Regular expression matching all characters inside the W/FW ranges.
+const charRangeRe = new RegExp(`[${charsWide.join('')}${charsFullWidth.join('')}]`, 'g')
+
 module.exports = {
   charsWide,
-  charsFullWidth
+  charsFullWidth,
+  charRangeRe
 }
