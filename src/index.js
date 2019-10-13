@@ -18,21 +18,12 @@
 //
 // Source: https://unicode.org/reports/tr11/ - Report on East Asian width property
 
-const { charRangeRe, charsWide, charsFullWidth } = require('./characters')
+const { charRangeRe, charRangeReGlobal, charRangeSingleRe, charsWide, charsFullWidth } = require('./characters')
 const { wideCharAt } = require('./charAt')
+const { wideIndexOf, wideLastIndexOf } = require('./indexOf')
 const { wideLength } = require('./length')
 const { widePadStart, widePadEnd } = require('./pad')
 const { wideSlice, wideSubstr, wideSubstring } = require('./sub')
-
-// TODO
-const wideIndexOf = () => {
-  return -1
-}
-
-// TODO
-const wideLastIndexOf = () => {
-  return -1
-}
 
 module.exports = {
   wideCharAt,
@@ -46,6 +37,8 @@ module.exports = {
   wideSubstring,
   
   charRangeRe,
+  charRangeReGlobal,
+  charRangeSingleRe,
   charRange: {
     wide: charsWide,
     fullWidth: charsFullWidth

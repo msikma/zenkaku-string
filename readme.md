@@ -27,13 +27,13 @@ It provides the following exports:
 | Function name | Exact | Replacement for |
 |:--------------|------|:----------------|
 | <code><b>wideCharAt</b>(<i>str, idx[, padChar]</i>)</code> | No† | <code>"str".<b>charAt</b>(<i>idx</i>)</code> |
-| <code><b>wideIndexOf</b>(<i>str, searchVal[, fromIdx]</i>)</code> | Yes | <code>"str".<b>indexOf</b>(<i>searchVal[, fromIdx]</i>)</code> |
-| <code><b>wideLastIndexOf</b>(<i>str, searchVal[, fromIdx]</i>)</code> | Yes | <code>"str".<b>lastIndexOf</b>(<i>searchVal[, fromIdx]</i>)</code> |
+| <code><b>wideIndexOf</b>(<i>str, searchVal[, beginIdx]</i>)</code> | Yes | <code>"str".<b>indexOf</b>(<i>searchVal[, beginIdx]</i>)</code> |
+| <code><b>wideLastIndexOf</b>(<i>str, searchVal[, beginIdx]</i>)</code> | Yes | <code>"str".<b>lastIndexOf</b>(<i>searchVal[, beginIdx]</i>)</code> |
 | <code><b>wideLength</b>(<i>string</i>)</code> | Yes | <code>"str".<b>length</b></code> |
 | <code><b>widePadEnd</b>(<i>str, targetLength[, padChar]</i>)</code> | Yes | <code>"str".<b>padEnd</b>(<i>targetLength[, padChar]</i>)</code> |
 | <code><b>widePadStart</b>(<i>str, targetLength[, padChar]</i>)</code> | Yes | <code>"str".<b>padStart</b>(<i>targetLength[, padChar]</i>)</code> |
 | <code><b>wideSlice</b>(<i>str, beginIdx[, endIdx[, padChar]]</i>)</code> | No‡ | <code>"str".<b>slice</b>(<i>beginIdx[, endIdx]</i>)</code> |
-| <code><b>wideSubstr</b>(<i>str, start[, length[, padChar]]</i>)</code> | No‡ | <code>"str".<b>substr</b>(<i>start[, length]</i>)</code> |
+| <code><b>wideSubstr</b>(<i>str, beginIdx[, length[, padChar]]</i>)</code> | No‡ | <code>"str".<b>substr</b>(<i>beginIdx[, length]</i>)</code> |
 | <code><b>wideSubstring</b>(<i>str, beginIdx[, endIdx[, padChar]]</i>)</code> | No‡ | <code>"str".<b>substring</b>(<i>beginIdx[, endIdx]</i>)</code> |
 
 <small>†: returns a single padding character if second half of wide character is the result; see **¶ Ambiguity** below.</small><br />
@@ -82,17 +82,16 @@ Since **this library always aims to returns a string of a predictable length, it
 
 #### Matching wide characters
 
-If you need to process a string's wide characters in a custom way, you can import the regex used to match them:
+If you need to process a string's wide characters in some other way, you can import the regexes used to match them:
 
 ```js
-const { charRangeRe } = require('zenkaku-string')
+const { charRangeRe, charRangeReGlobal } = require('zenkaku-string')
 
 console.log(charRangeRe instanceof RegExp)  // true
+console.log(charRangeReGlobal instanceof RegExp)  // true
 ```
 
-The `charRangeRe` RegExp object is structured like `new RegExp('[\u1100-\u11F9\u3000-\u303F .. etc. \uFFE0-\uFFE6]', 'g')`. It has no capture group and matches every wide character individually.
-
-The raw character range arrays used to construct this regex are also exported as `charRange`.
+The `charRangeRe` RegExp object is structured like `new RegExp('[\u1100-\u11F9\u3000-\u303F .. etc. \uFFE0-\uFFE6]')`. The `charRangeReGlobal` variant has the global `"g"` flag set. They have no capture groups and match every wide character individually. The raw W/FW character ranges used to construct this regex are also exported as the `charRange` object.
 
 ## Examples
 
