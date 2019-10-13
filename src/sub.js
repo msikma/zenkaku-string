@@ -1,5 +1,7 @@
 // © 2019, MIT license
 
+const { charRangeReGlobal } = require('./characters')
+
 /**
  * Returns a sliced string with wide/fullwidth characters counting for two.
  *
@@ -28,8 +30,8 @@ const wideSlice = (str, startIdx, endIdx, pad = false, padChar = ' ') => {
   // or if end is smaller than start. String.prototype.slice() behaves the same.
   if (startIdx >= endIdx) return ''
 
-  // Note: the charsRegex object is stateful.
-  charsRegex.lastIndex = 0
+  // Note: the charRangeReGlobal object is stateful.
+  charRangeReGlobal.lastIndex = 0
 
   let match
   let startCount = 0
@@ -72,7 +74,7 @@ const wideSlice = (str, startIdx, endIdx, pad = false, padChar = ' ') => {
     }
 
     // Match up to the next wide character.
-    match = charsRegex.exec(str)
+    match = charRangeReGlobal.exec(str)
     console.log('match', (match && match[0]), 'idx', match.index)
 
     // If no match, we've passed the last wide character in the string (or there are none).
