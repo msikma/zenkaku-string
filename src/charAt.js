@@ -16,7 +16,6 @@ const { wideSlice } = require('./sub')
  * @returns {string}         Character found in the input string at the given index
  */
 const wideCharAt = (str, idx, padChar = ' ') => {
-  // Outsource this to wideSlice().
   return wideSlice(str, idx, idx + 1, padChar)
 }
 
