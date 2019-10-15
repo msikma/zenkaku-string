@@ -36,7 +36,7 @@ It provides the following exports:
 | <code><b>wideSubstr</b>(<i>str, beginIdx[, length[, padChar]]</i>)</code> | No‡ | <code>"str".<b>substr</b>(<i>beginIdx[, length]</i>)</code> |
 | <code><b>wideSubstring</b>(<i>str, beginIdx[, endIdx[, padChar]]</i>)</code> | No‡ | <code>"str".<b>substring</b>(<i>beginIdx[, endIdx]</i>)</code> |
 
-<small>†: returns a single padding character if second half of wide character is the result; see **¶ Ambiguity** below.</small><br />
+<small>†: returns a single padding character if the second half of wide character is the result; see **¶ Ambiguity** below.</small><br />
 <small>‡: pads start or end with a single padding character if half a wide character is included in resp. the start or end of the result string.</small>
 
 #### Ambiguity (string padding)
