@@ -2,8 +2,6 @@
 
 **String functions for handling [East Asian wide characters](https://www.unicode.org/reports/tr11-2/) in terminals**
 
-----
-
 In CJK (Chinese, Japanese and Korean) text, "wide" or "fullwidth" characters (or *zenkaku* in Japanese) are Unicode glyphs that get printed as two blocks wide instead of one when using a fixed-width font. Examples include ranges like the [Japanese kana](https://en.wikipedia.org/wiki/Kana) (あいうえお), [fullwidth romaji](https://en.wikipedia.org/wiki/Halfwidth_and_fullwidth_forms) (ＡＢＣＤＥ), and [kanji/hanzi ideographs](https://en.wikipedia.org/wiki/Kanji).
 
 Since these characters are printed as two blocks, but count as one, this causes a problem when trying to accurately measure the length of the string for use in a fixed-width text environment such as the terminal—a string containing one fullwidth character will visually appear to be one character longer than its length value would indicate. This causes e.g. tabulated layouts to be broken.
@@ -24,17 +22,77 @@ npm install --save zenkaku-string
 
 It provides the following exports:
 
-| Function name | Exact | Replacement for |
-|:--------------|------|:----------------|
-| <code><b>wideCharAt</b>(<i>str, idx[, padChar]</i>)</code> | No† | <code>"str".<b>charAt</b>(<i>idx</i>)</code> |
-| <code><b>wideIndexOf</b>(<i>str, searchVal[, beginIdx]</i>)</code> | Yes | <code>"str".<b>indexOf</b>(<i>searchVal[, beginIdx]</i>)</code> |
-| <code><b>wideLastIndexOf</b>(<i>str, searchVal[, beginIdx]</i>)</code> | Yes | <code>"str".<b>lastIndexOf</b>(<i>searchVal[, beginIdx]</i>)</code> |
-| <code><b>wideLength</b>(<i>string</i>)</code> | Yes | <code>"str".<b>length</b></code> |
-| <code><b>widePadEnd</b>(<i>str, targetLength[, padChar]</i>)</code> | Yes | <code>"str".<b>padEnd</b>(<i>targetLength[, padChar]</i>)</code> |
-| <code><b>widePadStart</b>(<i>str, targetLength[, padChar]</i>)</code> | Yes | <code>"str".<b>padStart</b>(<i>targetLength[, padChar]</i>)</code> |
-| <code><b>wideSlice</b>(<i>str, beginIdx[, endIdx[, padChar]]</i>)</code> | No‡ | <code>"str".<b>slice</b>(<i>beginIdx[, endIdx]</i>)</code> |
-| <code><b>wideSubstr</b>(<i>str, beginIdx[, length[, padChar]]</i>)</code> | No‡ | <code>"str".<b>substr</b>(<i>beginIdx[, length]</i>)</code> |
-| <code><b>wideSubstring</b>(<i>str, beginIdx[, endIdx[, padChar]]</i>)</code> | No‡ | <code>"str".<b>substring</b>(<i>beginIdx[, endIdx]</i>)</code> |
+<table>
+  <tr>
+    <th align="left">Function name</th>
+    <th align="left">Exact</th>
+    <th align="left">Replacement for</th>
+  </tr>
+
+  <tr>
+    <td><code><b>wideCharAt</b>(<i>str, idx[, padChar]</i>)</code></td>
+    <td>No†</td>
+    <td><code>"str".<b>charAt</b>(<i>idx</i>)</code></td>
+  </tr>
+  <tr>
+    <td><code><b>wideIndexOf</b>(<i>str, searchVal[, beginIdx]</i>)</code></td>
+    <td>Yes</td>
+    <td><code>"str".<b>indexOf</b>(<i>searchVal[, beginIdx]</i>)</code></td>
+  </tr>
+  <tr>
+    <td><code><b>wideLastIndexOf</b>(<i>str, searchVal[, beginIdx]</i>)</code></td>
+    <td>Yes</td>
+    <td><code>"str".<b>lastIndexOf</b>(<i>searchVal[, beginIdx]</i>)</code></td>
+  </tr>
+  <tr>
+    <td><code><b>wideLength</b>(<i>string</i>)</code></td>
+    <td>Yes</td>
+    <td><code>"str".<b>length</b></code></td>
+  </tr>
+  <tr>
+    <td><code><b>widePadEnd</b>(<i>str, targetLength[, padChar]</i>)</code></td>
+    <td>Yes</td>
+    <td><code>"str".<b>padEnd</b>(<i>targetLength[, padChar]</i>)</code></td>
+  </tr>
+  <tr>
+    <td><code><b>widePadStart</b>(<i>str, targetLength[, padChar]</i>)</code></td>
+    <td>Yes</td>
+    <td><code>"str".<b>padStart</b>(<i>targetLength[, padChar]</i>)</code></td>
+  </tr>
+  <tr>
+    <td><code><b>wideSlice</b>(<i>str, beginIdx[, endIdx[, padChar]]</i>)</code></td>
+    <td>No‡</td>
+    <td><code>"str".<b>slice</b>(<i>beginIdx[, endIdx]</i>)</code></td>
+  </tr>
+  <tr>
+    <td><code><b>wideSubstr</b>(<i>str, beginIdx[, length[, padChar]]</i>)</code></td>
+    <td>No‡</td>
+    <td><code>"str".<b>substr</b>(<i>beginIdx[, length]</i>)</code></td>
+  </tr>
+  <tr>
+    <td><code><b>wideSubstring</b>(<i>str, beginIdx[, endIdx[, padChar]]</i>)</code></td>
+    <td>No‡</td>
+    <td><code>"str".<b>substring</b>(<i>beginIdx[, endIdx]</i>)</code></td>
+  </tr>
+
+  <tr>
+    <th align="left">Export name</th>
+    <th align="left" colspan="2">Description</th>
+  </tr>
+
+  <tr>
+    <td><code><b>charRangeRe</b></code></td>
+    <td colspan="2"><code>RegExp</code> object used to match wide and fullwidth characters</td>
+  </tr>
+  <tr>
+    <td><code><b>charRange.wide</b></code></td>
+    <td colspan="2">Array of strings representing all wide character ranges</td>
+  </tr>
+  <tr>
+    <td><code><b>charRange.fullWidth</b></code></td>
+    <td colspan="2">Array of strings representing all fullwidth character ranges</td>
+  </tr>
+</table>
 
 <small>†: returns a single padding character if the second half of wide character is the result; see **¶ Ambiguity** below.</small><br />
 <small>‡: pads start or end with a single padding character if half a wide character is included in resp. the start or end of the result string.</small>
