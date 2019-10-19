@@ -82,7 +82,7 @@ It provides the following exports:
 
   <tr>
     <td><code><b>charRangeRe</b></code></td>
-    <td colspan="2"><code>RegExp</code> object used to match wide and fullwidth characters</td>
+    <td colspan="2"><code>RegExp</code> object used to match W/FW characters</td>
   </tr>
   <tr>
     <td><code><b>charRange.wide</b></code></td>
