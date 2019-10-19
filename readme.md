@@ -165,10 +165,18 @@ See `examples/table.js` for an example script showing how this library can be us
 
 TODO: add simple code example.
 
+## Related libraries
+
+All other Zenkaku projects use the string manipulation functions provided by this library, and are designed for use in building terminal applications.
+
+* [zenkaku-wrap](https://github.com/msikma/zenkaku-wrap) - Line wrapping with CJK support
+* [zenkaku-table](https://github.com/msikma/zenkaku-table) - Table generation with CJK support
+
 ## Sources
 
 * [Unicode Standard Annex #11 - Report on East Asian Width property](https://unicode.org/reports/tr11/)
 * [Unicode Technical Report #11](http://www.unicode.org/reports/tr11-2/) (contains a full list of W/FW character ranges)
+* [East Asian line breaking rules](https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages) - Article from Wikipedia
 
 ## Copyright
 
