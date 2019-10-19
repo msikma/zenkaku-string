@@ -8,7 +8,7 @@ Since these characters are printed as two blocks, but count as one, this causes 
 
 To work around this, **the functions in this library treat wide characters in strings as though they have a length of 2.**
 
-For a full list of the character ranges that are deemed to be "wide", see the [`characters.js` source](characters.js).
+For a full list of the character ranges that are deemed to be "wide", see the [`characters.js` source](src/characters.js).
 
 <center><b>⚠️ Note: this library is not ready to be used yet. ⚠️</b></center>
 
