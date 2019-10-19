@@ -1,6 +1,6 @@
 // © 2019, MIT license
 
-const { charRangeReGlobal } = require('./characters')
+const { charRangeRe, charRangeReGlobal } = require('./characters')
 
 /**
  * Returns a sliced string with wide/fullwidth characters counting for two.
@@ -21,93 +21,118 @@ const { charRangeReGlobal } = require('./characters')
  * @param   {string} str      Input string to slice
  * @param   {number} startIdx Start index
  * @param   {number} endIdx   End index (optional; slices to the end of the string if omitted)
- * @param   {bool}   pad      Add padding if the resulting string is smaller than expected
  * @param   {string} padChar  Character to use for padding the string to the correct length
  * @returns {string}          Sliced string
  */
-const wideSlice = (str, startIdx, endIdx, pad = false, padChar = ' ') => {
+const wideSlice = (str, startIdx, endIdx, padChar = '!') => {
+  // TODO: convert startIdx to Number, add tests
+
   // Special case: return an empty string if start/end is the same,
   // or if end is smaller than start. String.prototype.slice() behaves the same.
   if (startIdx >= endIdx) return ''
 
-  // Note: the charRangeReGlobal object is stateful.
+  // Check if there are any wide characters in the input string.
+  // If not, we can just use the regular slice methods.
+  if (!charRangeRe.test(str)) {
+    return str.slice(startIdx, endIdx)
+  }
+
+  // Note: the charRangeReGlobal object is stateful. Reset it before use.
   charRangeReGlobal.lastIndex = 0
 
-  let match
-  let startCount = 0
-  let endCount = 0
-  let startFound = false
+  console.log('wideSlice start', { str, startIdx, endIdx });
+  console.log('=')
 
-  let count = 0
-  let offset = 0
+  const expect2 = str.replace(charRangeReGlobal, 'XX')
+  const expect = expect2.slice(startIdx, endIdx)
 
-  // The 'target' holds the start or end index depending on which we're looking for.
-  let target = startIdx
+  charRangeReGlobal.lastIndex = 0
 
-  console.log('----')
-  console.log('start while', str, 'start', startIdx, 'end', endIdx)
+
+  let wideIdx = 0           // Current matched position index plus wide character count ("real" position).
+  let wideCount = 0         // Number of wide characters found so far.
+
+  let realStartIdx = null   // "Real" start index, keeping wide characters into account.
+  let realEndIdx = null     // "Real" end index.
+
+  let foundStart = false    // Whether the wide start index has been found yet.
+  let foundEnd = false      // Whether the wide end index has been found yet.
+
+  let hasStartPadding = false // Whether a padding character is needed at the start.
+  let hasEndPadding = false   // Whether a padding character is needed at the end.
+  
+  // Check if we can set the start index right away.
+  realStartIdx = startIdx === 0 ? 0 : null
+  foundStart = startIdx === 0 ? true : false
+  
 
   while (true) {
-    // If we've equaled or passed the target index we can wrap up.
-    if (offset >= target) {
-      console.log(`offset (${offset}) >= target (${target})`, count)
-      // If we've actually exceeded the target, don't count the last wide character
-      // since our target comes before it.
-      if (offset > target) {
-        console.log('offset > target - removing 1 from count')
-        count -= 1
-      }
-
-      // Either set up a search for the end index, or break if we got both.
-      if (startFound === false) {
-        startCount = count
-        startFound = true
-        target = endIdx
-        console.log('  start found. count', startCount)
-        continue
-      }
-      else {
-        endCount = count
-        console.log('  end found. count', endCount)
-        break
-      }
-    }
-
     // Match up to the next wide character.
     match = charRangeReGlobal.exec(str)
-    console.log('match', (match && match[0]), 'idx', match.index)
 
-    // If no match, we've passed the last wide character in the string (or there are none).
-    if (match == null) {
-      console.log('no match!')
-      if (startFound === false) {
-        startCount = count
+    
+
+    // If there's no match, we've passed the last wide character in the string.
+    if (!match) {
+      console.log('no match end');
+      if (!foundEnd) {
+        realEndIdx = endIdx - wideCount
+        foundEnd = true
       }
-      endCount = count
       break
     }
 
-    // Add one matched wide character to the count.
-    count += 1
 
-    // Now check our "real" position inside the string, counting wide characters as two,
-    // to see if we have found the correct start and end indices to slice with.
-    // Actual check continues at the start of the loop - to account for an end position
-    // that equals the start position.
-    offset = match.index + count
-    console.log('iteration end, count', count, 'offset', offset, 'idx', match.index)
+    wideIdx = match.index + wideCount
+
+    console.log('match', {'char': match[0], wideIdx, 'exp': expect2.slice(0, wideIdx + 2) })
+
+    if (!foundStart) {
+      if (wideIdx >= startIdx) {
+        console.log('sta = 1');
+        realStartIdx = startIdx - wideCount
+        foundStart = true
+      }
+      if (wideIdx + 1 === startIdx) {
+        realStartIdx = startIdx - (wideCount) // for the padding!
+        foundStart = true
+        hasStartPadding = true
+      }
+    }
+
+    if (!foundEnd) {
+      if (wideIdx >= endIdx) {
+        console.log('end = 1');
+        realEndIdx = endIdx - wideCount
+        foundEnd = true
+      }
+      if (wideIdx + 1 === endIdx) {
+        realEndIdx = endIdx - (wideCount + 1) // for the padding!
+        foundEnd = true
+        hasEndPadding = true
+      }
+    }
+
+
+    if (foundStart && foundEnd) {
+      break
+    }
+
+    wideCount += 1
   }
 
-  // We can now calculate the "real" start and end offsets that will result in a string
-  // of the desired length as though wide characters count for two.
-  const sliced = str.slice(startIdx - startCount, endIdx - startCount - endCount)
+  console.log('=')
 
-  console.log(`original: ${str} (${startIdx}, ${endIdx}), final str: "${sliced}", length: "${sliced.length}", expected: "${Math.max(endIdx - startIdx, 0)}"`)
-  console.log('---')
+  console.log('wideSlice end', { wideCount, startIdx, endIdx, realStartIdx, realEndIdx })
 
-  // Final check: as mentioned in the docs, the string can be smaller than the expected
-  // range if one or both of the offsets
-  return sliced;
+  
+  
+  console.log(expect, 'done');
+
+  if (hasStartPadding) {
+    return padChar + str.slice(realStartIdx, realEndIdx) + (hasEndPadding ? padChar : '')
+  }
+  return str.slice(realStartIdx, realEndIdx) + (hasEndPadding ? padChar : '')
 }
 
 const wideSubstr = () => {
