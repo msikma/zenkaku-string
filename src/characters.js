@@ -55,9 +55,10 @@ const charsFullWidth = [
   `\uFFE0-\uFFE6`
 ]
 
-// Regular expressions matching a single character inside W/FW ranges.
-// One is a pure regex without flags; the other has only the global flag set *and is stateful*.
+/** Regular expression matching characters in the W/FW ranges. */
 const charRangeRe = new RegExp(`[${charsWide.join('')}${charsFullWidth.join('')}]`)
+
+// Globally matching (stateful) version. Only used internally (not exported from the index).
 const charRangeReGlobal = new RegExp(charRangeRe, 'g')
 
 module.exports = {

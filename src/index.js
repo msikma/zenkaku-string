@@ -18,7 +18,7 @@
 //
 // Source: https://unicode.org/reports/tr11/ - Report on East Asian width property
 
-const { charRangeRe, charRangeReGlobal, charRangeSingleRe, charsWide, charsFullWidth } = require('./characters')
+const { charRangeRe, charsWide, charsFullWidth } = require('./characters')
 const { wideCharAt } = require('./charAt')
 const { wideIndexOf, wideLastIndexOf } = require('./indexOf')
 const { wideLength } = require('./length')
@@ -37,8 +37,6 @@ module.exports = {
   wideSubstring,
   
   charRangeRe,
-  charRangeReGlobal,
-  charRangeSingleRe,
   charRange: {
     wide: charsWide,
     fullWidth: charsFullWidth
