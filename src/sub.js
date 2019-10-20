@@ -8,16 +8,13 @@ const { wideLength } = require('./length')
  *
  * This function has the same interface as String.prototype.slice(), except that the string
  * is the first argument and the begin and end indices come after. This function keeps wide
- * characters in mind when slicing. Unlike wideLength(), this function needs to consider where
- * inside the string the wide characters are (whether they are inside the given range or not).
+ * characters in mind when slicing.
  *
- * Since wide characters are two characters long, an indice can end up being right in the middle
- * of one. Since you can't split up a wide character in half, that means we need to either
- * include it or leave it out: this algorithm errs on the side of including halved wide
- * characters for the start index, and leaving them out for the end index, so that the resulting
- * string length will never exceed the expected range.
- *
- * However, that does mean the string length can be (at most) smaller than expected by 1.
+ * Since wide characters are two characters long, an index can end up being right in the middle
+ * of one. Since you can't split up a wide character in half, they are left out and replaced by
+ * a padding character instead. This means the sliced string will always have the expected length.
+ * 
+ * See ¶ Ambiguity in the readme for more information.
  *
  * @param   {string} str      Input string to slice
  * @param   {number} startIdx Start index
@@ -30,7 +27,7 @@ const wideSlice = (str, startIdx = 0, endIdx = Infinity, padChar = ' ') => {
   // 1) when the end index is zero;
   if (endIdx === 0) return ''
   // 2) or when both numbers have the same sign and the end is smaller.
-  if ((startIdx > 0) === (endIdx > 0) && startIdx > endIdx) return ''
+  if (startIdx > 0 === endIdx > 0 && startIdx > endIdx) return ''
 
   // If there are no wide characters in the input string at all,
   // the result must necessarily be identical to String.prototype.slice().
