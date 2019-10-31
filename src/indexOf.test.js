@@ -55,7 +55,7 @@ describe('Zenkaku-string', () => {
 
         expect(wideIndexOf('abcあばよxyzabcあばよxyz', 'a')).toBe(0)
       })
-      
+
       it('is called with a start index', () => {
         expect(wideIndexOf('abc', 'a', -5)).toBe(0)
         expect(wideIndexOf('abc', 'a', -Infinity)).toBe(0)
@@ -155,7 +155,7 @@ describe('Zenkaku-string', () => {
         expect(wideLastIndexOf('abcあばよxyzabcあばよxyz', 'あばよxy')).toBe(15)
         expect(wideLastIndexOf('abcあばよxyzabcあばよxyz', 'あばよxyz')).toBe(15)
       })
-      
+
       it('is called with a start index', () => {
         expect(wideLastIndexOf('abc', 'a', -1)).toBe(0)
         expect(wideLastIndexOf('abc', 'a', 0)).toBe(0)

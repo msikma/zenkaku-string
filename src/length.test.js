@@ -4,6 +4,13 @@ const { wideLength } = require('./length')
 
 describe('Zenkaku-string', () => {
   describe('wideLength()', () => {
+    describe('the return value is null when', () => {
+      it('is called with a non-iterable as argument', () => {
+        expect(wideLength(0)).toBe(null)
+        expect(wideLength({})).toBe(null)
+      })
+    })
+
     describe('string length is correctly calculated when', () => {
       it('contains only non-wide characters', () => {
         expect(wideLength('asdf')).toBe(4)
