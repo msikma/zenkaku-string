@@ -138,7 +138,7 @@ In these last two examples we're slicing a kanji character down the middle, and 
 
 Since **this library always aims to returns a string of a predictable length, it replaces half characters with a padding character.** The default padding character is a single space (U+0020), but it can be specified as the last argument to each function.
 
-Note that **a padding character is always used as-is**—there is no extra length calculation done on the padding character, so if a wide character is used the string will look longer than if a non-wide character were used. It's expected that a non-wide character is used for padding, even for `widePadStart()` and `widePadEnd()`
+Note that **a padding character is always used as-is**—there is no extra length calculation done on the padding character, so if a wide character is used the string will look longer than if a non-wide character were used. It's expected that a non-wide character is used for padding, even for `widePadStart()` and `widePadEnd()`.
 
 #### Matching wide characters
 
